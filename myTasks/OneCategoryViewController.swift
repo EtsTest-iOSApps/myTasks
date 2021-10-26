@@ -1,5 +1,5 @@
 //
-//  MainTableViewController.swift
+//  OneCategoryViewController.swift
 //  myTasks
 //
 //  Created by Максим Хлесткин on 26.10.2021.
@@ -7,10 +7,9 @@
 
 import UIKit
 
-class MainTableViewController: UITableViewController {
+class OneCategoryViewController: UITableViewController {
     
-    var categoryObject = CategoryModel(title: "")
-    var temporaryArray: [CategoryModel] = [CategoryModel(title: "Hello")]
+    var temporaryTask: [TaskModel] = [TaskModel(title: "Hi")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,36 +23,33 @@ class MainTableViewController: UITableViewController {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return temporaryArray.count
+        return temporaryTask.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.identifier, for: indexPath) as? CategoryTableViewCell else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {
                 return UITableViewCell()
             }
-        cell.configureCell(model: temporaryArray[indexPath.row])
+        cell.configureCell(model: temporaryTask[indexPath.row])
         return cell
     }
     
-    @IBAction func addCategoryButtonPushed(_ sender: UIBarButtonItem) {
+    @IBAction func addTaskButtonPushed(_ sender: UIBarButtonItem) {
         
         let alertController = UIAlertController(title: "Title", message: "Title", preferredStyle: .alert)
         
         alertController.addTextField { (textField) in
-            textField.placeholder = "Input category name here..."
+            textField.placeholder = "Input task name here..."
         }
         
         let addAction = UIAlertAction(title: "Add", style: .default) { (alert) in
             if let textField = alertController.textFields?[0].text {
-                self.categoryObject.title = textField
-                self.temporaryArray.append(self.categoryObject)
+                var taskObject = TaskModel(title: "")
+                taskObject.title = textField
+                self.temporaryTask.append(taskObject)
                 self.tableView.reloadData()
             }
         }
@@ -64,6 +60,5 @@ class MainTableViewController: UITableViewController {
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)
-        
     }
 }

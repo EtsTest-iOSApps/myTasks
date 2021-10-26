@@ -16,6 +16,9 @@
 		15D74B7527283EAA00190AB0 /* UIAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B7427283EAA00190AB0 /* UIAlert.swift */; };
 		15D74B772728407B00190AB0 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B762728407B00190AB0 /* CategoryModel.swift */; };
 		15D74B792728467B00190AB0 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B782728467B00190AB0 /* MainTableViewController.swift */; };
+		15D74B7B272857D700190AB0 /* OneCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B7A272857D700190AB0 /* OneCategoryViewController.swift */; };
+		15D74B7F2728585200190AB0 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B7E2728585200190AB0 /* TaskTableViewCell.swift */; };
+		15D74B822728598100190AB0 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B812728598100190AB0 /* TaskModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		15D74B7427283EAA00190AB0 /* UIAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlert.swift; sourceTree = "<group>"; };
 		15D74B762728407B00190AB0 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		15D74B782728467B00190AB0 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		15D74B7A272857D700190AB0 /* OneCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCategoryViewController.swift; sourceTree = "<group>"; };
+		15D74B7E2728585200190AB0 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		15D74B812728598100190AB0 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +72,11 @@
 				15D74B6027283D0A00190AB0 /* SceneDelegate.swift */,
 				15D74B782728467B00190AB0 /* MainTableViewController.swift */,
 				15D74B762728407B00190AB0 /* CategoryModel.swift */,
+				15D74B812728598100190AB0 /* TaskModel.swift */,
+				15D74B7A272857D700190AB0 /* OneCategoryViewController.swift */,
 				15D74B7427283EAA00190AB0 /* UIAlert.swift */,
 				15D74B7227283DF200190AB0 /* CategoryTableViewCell.swift */,
+				15D74B7E2728585200190AB0 /* TaskTableViewCell.swift */,
 				15D74B6427283D0A00190AB0 /* Main.storyboard */,
 				15D74B6727283D1200190AB0 /* Assets.xcassets */,
 				15D74B6927283D1200190AB0 /* LaunchScreen.storyboard */,
@@ -147,10 +156,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15D74B7F2728585200190AB0 /* TaskTableViewCell.swift in Sources */,
 				15D74B7527283EAA00190AB0 /* UIAlert.swift in Sources */,
+				15D74B7B272857D700190AB0 /* OneCategoryViewController.swift in Sources */,
 				15D74B772728407B00190AB0 /* CategoryModel.swift in Sources */,
 				15D74B5F27283D0A00190AB0 /* AppDelegate.swift in Sources */,
 				15D74B6127283D0A00190AB0 /* SceneDelegate.swift in Sources */,
+				15D74B822728598100190AB0 /* TaskModel.swift in Sources */,
 				15D74B7327283DF200190AB0 /* CategoryTableViewCell.swift in Sources */,
 				15D74B792728467B00190AB0 /* MainTableViewController.swift in Sources */,
 			);

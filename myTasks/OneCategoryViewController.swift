@@ -7,25 +7,37 @@
 
 import UIKit
 
-class OneCategoryViewController: UITableViewController {
+class OneCategoryViewController: UITableViewController, CategoryDelegate {
+    
+    @IBOutlet weak var navBarLabel: UINavigationItem!
+    
+    var test1 = "Tasks"
     
     var temporaryTask: [TaskModel] = [TaskModel(title: "Hi")]
+    var manager = MainTableViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        manager.delegate = self
+
     }
     
     // MARK: - Table view data source
     
+    func transferData(model: CategoryModel) {
+        test1 = model.title
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return temporaryTask.count
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -34,6 +46,7 @@ class OneCategoryViewController: UITableViewController {
                 return UITableViewCell()
             }
         cell.configureCell(model: temporaryTask[indexPath.row])
+        navBarLabel.title = test1
         return cell
     }
     

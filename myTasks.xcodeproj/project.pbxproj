@@ -19,6 +19,7 @@
 		15D74B7B272857D700190AB0 /* OneCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B7A272857D700190AB0 /* OneCategoryViewController.swift */; };
 		15D74B7F2728585200190AB0 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B7E2728585200190AB0 /* TaskTableViewCell.swift */; };
 		15D74B822728598100190AB0 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B812728598100190AB0 /* TaskModel.swift */; };
+		15D74B842728953100190AB0 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B832728953100190AB0 /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		15D74B7A272857D700190AB0 /* OneCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCategoryViewController.swift; sourceTree = "<group>"; };
 		15D74B7E2728585200190AB0 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		15D74B812728598100190AB0 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
+		15D74B832728953100190AB0 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				15D74B762728407B00190AB0 /* CategoryModel.swift */,
 				15D74B812728598100190AB0 /* TaskModel.swift */,
 				15D74B7A272857D700190AB0 /* OneCategoryViewController.swift */,
+				15D74B832728953100190AB0 /* ViewModel.swift */,
 				15D74B7427283EAA00190AB0 /* UIAlert.swift */,
 				15D74B7227283DF200190AB0 /* CategoryTableViewCell.swift */,
 				15D74B7E2728585200190AB0 /* TaskTableViewCell.swift */,
@@ -156,6 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15D74B842728953100190AB0 /* ViewModel.swift in Sources */,
 				15D74B7F2728585200190AB0 /* TaskTableViewCell.swift in Sources */,
 				15D74B7527283EAA00190AB0 /* UIAlert.swift in Sources */,
 				15D74B7B272857D700190AB0 /* OneCategoryViewController.swift in Sources */,

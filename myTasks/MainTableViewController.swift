@@ -7,10 +7,16 @@
 
 import UIKit
 
+protocol CategoryDelegate {
+    func transferData(model: CategoryModel)
+}
+
 class MainTableViewController: UITableViewController {
     
     var categoryObject = CategoryModel(title: "")
-    var temporaryArray: [CategoryModel] = [CategoryModel(title: "Hello")]
+    var temporaryArray: [CategoryModel] = [CategoryModel(title: "Home"), CategoryModel(title: "Work"), CategoryModel(title: "Fun")]
+    
+    var delegate: CategoryDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +27,7 @@ class MainTableViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 1
+        return temporaryArray.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -29,8 +35,14 @@ class MainTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return temporaryArray.count
+        return 1
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -38,7 +50,8 @@ class MainTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.identifier, for: indexPath) as? CategoryTableViewCell else {
                 return UITableViewCell()
             }
-        cell.configureCell(model: temporaryArray[indexPath.row])
+        cell.configureCell(model: temporaryArray[indexPath.section])
+        self.delegate?.transferData(model: temporaryArray[indexPath.item])
         return cell
     }
     

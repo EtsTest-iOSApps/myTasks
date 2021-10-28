@@ -5,8 +5,13 @@
 //  Created by Максим Хлесткин on 26.10.2021.
 //
 
+import RealmSwift
 import Foundation
 
-struct CategoryModel {
-    var title: String
+class CategoryModel: Object {
+    
+    @Persisted var name = ""
+    @Persisted var date = Date()
+    @Persisted var tasks: List<TaskModel>
+
 }

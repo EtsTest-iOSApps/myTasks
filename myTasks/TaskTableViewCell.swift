@@ -11,14 +11,14 @@ class TaskTableViewCell: UITableViewCell {
     
     @IBOutlet weak var taskTitle: UILabel!
     
+    @IBOutlet weak var noteTitle: UILabel!
+    
     static let identifier = "TaskCell"
     
-    static func nib() -> UINib {
-        return UINib(nibName: "TaskCell", bundle: nil)
-    }
-    
     func configureCell(model: TaskModel) {
-        taskTitle.text = model.title
+        taskTitle.text = model.name
+        noteTitle.text = model.note
+        
     }
-
 }
+

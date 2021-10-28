@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		155B238C27297725008D8544 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 155B238B27297725008D8544 /* Realm */; };
 		155B238E27297725008D8544 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 155B238D27297725008D8544 /* RealmSwift */; settings = {ATTRIBUTES = (Required, ); }; };
+		155B239027299D13008D8544 /* Realm Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155B238F27299D13008D8544 /* Realm Manager.swift */; };
+		155B23922729C5AA008D8544 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155B23912729C5A9008D8544 /* Mapper.swift */; };
+		15C10E84272AD41100F08195 /* TaskWithoutNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C10E83272AD41100F08195 /* TaskWithoutNoteTableViewCell.swift */; };
 		15D74B5F27283D0A00190AB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B5E27283D0A00190AB0 /* AppDelegate.swift */; };
 		15D74B6127283D0A00190AB0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B6027283D0A00190AB0 /* SceneDelegate.swift */; };
 		15D74B6627283D0A00190AB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15D74B6427283D0A00190AB0 /* Main.storyboard */; };
@@ -25,6 +28,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		155B238F27299D13008D8544 /* Realm Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm Manager.swift"; sourceTree = "<group>"; };
+		155B23912729C5A9008D8544 /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		15C10E83272AD41100F08195 /* TaskWithoutNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskWithoutNoteTableViewCell.swift; sourceTree = "<group>"; };
 		15D74B5B27283D0A00190AB0 /* myTasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myTasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15D74B5E27283D0A00190AB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15D74B6027283D0A00190AB0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,12 +83,15 @@
 				15D74B5E27283D0A00190AB0 /* AppDelegate.swift */,
 				15D74B6027283D0A00190AB0 /* SceneDelegate.swift */,
 				15D74B782728467B00190AB0 /* MainTableViewController.swift */,
+				155B238F27299D13008D8544 /* Realm Manager.swift */,
 				15D74B762728407B00190AB0 /* CategoryModel.swift */,
 				15D74B812728598100190AB0 /* TaskModel.swift */,
 				15D74B7A272857D700190AB0 /* OneCategoryViewController.swift */,
+				155B23912729C5A9008D8544 /* Mapper.swift */,
 				15D74B832728953100190AB0 /* ViewModel.swift */,
 				15D74B7427283EAA00190AB0 /* UIAlert.swift */,
 				15D74B7227283DF200190AB0 /* CategoryTableViewCell.swift */,
+				15C10E83272AD41100F08195 /* TaskWithoutNoteTableViewCell.swift */,
 				15D74B7E2728585200190AB0 /* TaskTableViewCell.swift */,
 				15D74B6427283D0A00190AB0 /* Main.storyboard */,
 				15D74B6727283D1200190AB0 /* Assets.xcassets */,
@@ -174,6 +183,9 @@
 				15D74B7F2728585200190AB0 /* TaskTableViewCell.swift in Sources */,
 				15D74B7527283EAA00190AB0 /* UIAlert.swift in Sources */,
 				15D74B7B272857D700190AB0 /* OneCategoryViewController.swift in Sources */,
+				15C10E84272AD41100F08195 /* TaskWithoutNoteTableViewCell.swift in Sources */,
+				155B23922729C5AA008D8544 /* Mapper.swift in Sources */,
+				155B239027299D13008D8544 /* Realm Manager.swift in Sources */,
 				15D74B772728407B00190AB0 /* CategoryModel.swift in Sources */,
 				15D74B5F27283D0A00190AB0 /* AppDelegate.swift in Sources */,
 				15D74B6127283D0A00190AB0 /* SceneDelegate.swift in Sources */,

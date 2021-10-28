@@ -8,6 +8,8 @@
 import Foundation
 
 struct ViewModel {
+    
     var categories: CategoryModel?
-    var task: TaskModel?
+    var task: TaskModel
+    
 }

@@ -11,13 +11,12 @@ class CategoryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var categoryTitle: UILabel!
     
+    @IBOutlet weak var categoryDetail: UILabel!
+    
     static let identifier = "CategoryCell"
     
-    static func nib() -> UINib {
-        return UINib(nibName: "CategoryCell", bundle: nil)
-    }
-    
     func configureCell(model: CategoryModel) {
-        categoryTitle.text = model.title
+        categoryTitle.text = model.name
+        categoryDetail.text = "\(model.tasks.count)"
     }
 }

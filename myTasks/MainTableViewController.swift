@@ -20,8 +20,6 @@ class MainTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = editButtonItem
-        editButtonItem.tintColor = .white
         
         categories = realm.objects(CategoryModel.self)
         
@@ -75,7 +73,6 @@ class MainTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        
         let currentList = categories[indexPath.section]
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { _, _ in
             
@@ -85,13 +82,13 @@ class MainTableViewController: UITableViewController {
         
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { _, _ in
             self.addAndUpdateAlert(currentList, completion: {
-                tableView.reloadRows(at: [indexPath], with: .middle)
+                tableView.reloadRows(at: [indexPath], with: .fade)
             })
         }
         
         let completed = UITableViewRowAction(style: .normal, title: "Done") { _, _ in
             RealmManager.makeAllTasksDone(currentList)
-            tableView.reloadRows(at: [indexPath], with: .automatic)
+            tableView.reloadRows(at: [indexPath], with: .none)
         }
         
         completed.backgroundColor = .systemGreen

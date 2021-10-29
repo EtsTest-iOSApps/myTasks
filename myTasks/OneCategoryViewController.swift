@@ -20,6 +20,10 @@ class OneCategoryViewController: UITableViewController, CategoryDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navBarLabel.title = currentTasksList.name
+        navigationItem.backBarButtonItem?.tintColor = .white
+        navigationController?.navigationBar.barTintColor = UIColor()
+        
         taskFilter()
         
     }
@@ -53,14 +57,14 @@ class OneCategoryViewController: UITableViewController, CategoryDelegate {
         return 55
     }
     
-    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNonzeroMagnitude
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let task: TaskModel!
         task = indexPath.section == 0 ? currentTasks[indexPath.row] : completedTasks[indexPath.row]
-        
-        navBarLabel.title = currentTasksList.name
         
         if task.note == "" {
             guard
@@ -122,6 +126,7 @@ class OneCategoryViewController: UITableViewController, CategoryDelegate {
 }
 
 extension OneCategoryViewController {
+    
     private func addAndUpdateTaskAlert(_ taskName: TaskModel? = nil) {
         
         var title = "New task"

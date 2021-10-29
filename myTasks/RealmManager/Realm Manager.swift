@@ -56,7 +56,7 @@ class RealmManager {
         }
     }
     
-    // MARK: - Done tasks methods
+    // MARK: - Update completion methods
     
     static func makeAllTasksDone(_ tasksList: CategoryModel) {
         try! realm.write {

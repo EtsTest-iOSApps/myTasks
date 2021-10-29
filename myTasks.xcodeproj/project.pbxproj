@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15388146272C2697007C759D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15388145272C2697007C759D /* Colors.swift */; };
+		154554B8272C3C5800720E6E /* Gesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154554B7272C3C5800720E6E /* Gesture.swift */; };
 		155B238C27297725008D8544 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 155B238B27297725008D8544 /* Realm */; };
 		155B238E27297725008D8544 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 155B238D27297725008D8544 /* RealmSwift */; settings = {ATTRIBUTES = (Required, ); }; };
 		155B239027299D13008D8544 /* Realm Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155B238F27299D13008D8544 /* Realm Manager.swift */; };
@@ -24,10 +26,11 @@
 		15D74B7B272857D700190AB0 /* OneCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B7A272857D700190AB0 /* OneCategoryViewController.swift */; };
 		15D74B7F2728585200190AB0 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B7E2728585200190AB0 /* TaskTableViewCell.swift */; };
 		15D74B822728598100190AB0 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B812728598100190AB0 /* TaskModel.swift */; };
-		15D74B842728953100190AB0 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B832728953100190AB0 /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15388145272C2697007C759D /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		154554B7272C3C5800720E6E /* Gesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gesture.swift; sourceTree = "<group>"; };
 		155B238F27299D13008D8544 /* Realm Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm Manager.swift"; sourceTree = "<group>"; };
 		155B23912729C5A9008D8544 /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
 		15C10E83272AD41100F08195 /* TaskWithoutNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskWithoutNoteTableViewCell.swift; sourceTree = "<group>"; };
@@ -45,7 +48,6 @@
 		15D74B7A272857D700190AB0 /* OneCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCategoryViewController.swift; sourceTree = "<group>"; };
 		15D74B7E2728585200190AB0 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		15D74B812728598100190AB0 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
-		15D74B832728953100190AB0 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15388147272C3543007C759D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				15D74B812728598100190AB0 /* TaskModel.swift */,
+				15D74B762728407B00190AB0 /* CategoryModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		15388148272C3548007C759D /* RealmManager */ = {
+			isa = PBXGroup;
+			children = (
+				155B238F27299D13008D8544 /* Realm Manager.swift */,
+			);
+			path = RealmManager;
+			sourceTree = "<group>";
+		};
+		15388149272C3552007C759D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				15D74B782728467B00190AB0 /* MainTableViewController.swift */,
+				15D74B7A272857D700190AB0 /* OneCategoryViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1538814A272C3557007C759D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				15C10E83272AD41100F08195 /* TaskWithoutNoteTableViewCell.swift */,
+				15D74B7E2728585200190AB0 /* TaskTableViewCell.swift */,
+				15D74B7227283DF200190AB0 /* CategoryTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		15D74B5227283D0900190AB0 = {
 			isa = PBXGroup;
 			children = (
@@ -80,19 +118,16 @@
 		15D74B5D27283D0A00190AB0 /* myTasks */ = {
 			isa = PBXGroup;
 			children = (
+				15388148272C3548007C759D /* RealmManager */,
+				15388147272C3543007C759D /* Models */,
+				15388149272C3552007C759D /* Views */,
+				1538814A272C3557007C759D /* Cells */,
 				15D74B5E27283D0A00190AB0 /* AppDelegate.swift */,
 				15D74B6027283D0A00190AB0 /* SceneDelegate.swift */,
-				15D74B782728467B00190AB0 /* MainTableViewController.swift */,
-				155B238F27299D13008D8544 /* Realm Manager.swift */,
-				15D74B762728407B00190AB0 /* CategoryModel.swift */,
-				15D74B812728598100190AB0 /* TaskModel.swift */,
-				15D74B7A272857D700190AB0 /* OneCategoryViewController.swift */,
 				155B23912729C5A9008D8544 /* Mapper.swift */,
-				15D74B832728953100190AB0 /* ViewModel.swift */,
+				154554B7272C3C5800720E6E /* Gesture.swift */,
+				15388145272C2697007C759D /* Colors.swift */,
 				15D74B7427283EAA00190AB0 /* UIAlert.swift */,
-				15D74B7227283DF200190AB0 /* CategoryTableViewCell.swift */,
-				15C10E83272AD41100F08195 /* TaskWithoutNoteTableViewCell.swift */,
-				15D74B7E2728585200190AB0 /* TaskTableViewCell.swift */,
 				15D74B6427283D0A00190AB0 /* Main.storyboard */,
 				15D74B6727283D1200190AB0 /* Assets.xcassets */,
 				15D74B6927283D1200190AB0 /* LaunchScreen.storyboard */,
@@ -179,13 +214,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15D74B842728953100190AB0 /* ViewModel.swift in Sources */,
 				15D74B7F2728585200190AB0 /* TaskTableViewCell.swift in Sources */,
 				15D74B7527283EAA00190AB0 /* UIAlert.swift in Sources */,
+				15388146272C2697007C759D /* Colors.swift in Sources */,
 				15D74B7B272857D700190AB0 /* OneCategoryViewController.swift in Sources */,
 				15C10E84272AD41100F08195 /* TaskWithoutNoteTableViewCell.swift in Sources */,
 				155B23922729C5AA008D8544 /* Mapper.swift in Sources */,
 				155B239027299D13008D8544 /* Realm Manager.swift in Sources */,
+				154554B8272C3C5800720E6E /* Gesture.swift in Sources */,
 				15D74B772728407B00190AB0 /* CategoryModel.swift in Sources */,
 				15D74B5F27283D0A00190AB0 /* AppDelegate.swift in Sources */,
 				15D74B6127283D0A00190AB0 /* SceneDelegate.swift in Sources */,

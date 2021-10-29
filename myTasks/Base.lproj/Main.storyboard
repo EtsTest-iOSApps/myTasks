@@ -60,7 +60,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="bUU-uf-qmn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.3136306405" green="0.4941477776" blue="0.53718537089999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.31372549019607843" green="0.49411764705882355" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="jFk-Al-9if" customClass="CategoryTableViewCell" customModule="myTasks" customModuleProvider="target">
                                 <rect key="frame" x="20" y="32" width="374" height="21"/>
@@ -81,7 +81,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xX-6J-CP8">
                                                     <rect key="frame" x="204" y="0.0" width="130" height="21"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In progress:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82i-Ec-gnj">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82i-Ec-gnj">
                                                             <rect key="frame" x="0.0" y="0.0" width="105" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -119,6 +119,7 @@
                                         <constraint firstItem="l6l-qC-8nG" firstAttribute="leading" secondItem="m33-bh-4Hh" secondAttribute="leading" constant="20" id="yfV-WX-wZb"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="categoryDetail" destination="G6f-5i-jT0" id="knT-IU-DIi"/>
                                     <outlet property="categoryTitle" destination="GAg-KU-kV1" id="cS2-Ni-63B"/>
@@ -154,7 +155,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="mkM-te-Htw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cyan="0.93512562749999995" magenta="0.45941781999999998" yellow="0.4238880277" black="0.028417877849999999" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                        <color key="backgroundColor" red="0.31372549019607843" green="0.49411764705882355" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TaskCellWithoutNote" textLabel="u1f-aA-8w2" imageView="6eY-Ca-IEY" rowHeight="55" style="IBUITableViewCellStyleDefault" id="zHx-0T-8A9" customClass="TaskWithoutNoteTableViewCell" customModule="myTasks" customModuleProvider="target">
                                 <rect key="frame" x="20" y="32" width="374" height="55"/>

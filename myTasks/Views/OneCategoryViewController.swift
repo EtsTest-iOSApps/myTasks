@@ -8,10 +8,9 @@
 import UIKit
 import RealmSwift
 
-class OneCategoryViewController: UITableViewController, CategoryDelegate {
+class OneCategoryViewController: UITableViewController {
     
     @IBOutlet weak var navBarLabel: UINavigationItem!
-    
     
     var currentTasksList: CategoryModel!
     private var currentTasks: Results<TaskModel>!
@@ -22,17 +21,12 @@ class OneCategoryViewController: UITableViewController, CategoryDelegate {
         
         navBarLabel.title = currentTasksList.name
         navigationItem.backBarButtonItem?.tintColor = .white
-        navigationController?.navigationBar.barTintColor = UIColor()
         
         taskFilter()
-        
+
     }
     
     // MARK: - Table view data source
-    
-    func transferData(model: CategoryModel) {
-        
-    }
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white
@@ -47,7 +41,10 @@ class OneCategoryViewController: UITableViewController, CategoryDelegate {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "CURRENT TASKS" : "COMPLETED TASKS"
+        if currentTasksList.tasks.count == 0 {
+            return ""
+        }
+        return section == 0 ? "CURRENT" : "COMPLETED"
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -168,29 +165,29 @@ extension OneCategoryViewController {
                 self.tableView.reloadData()
             }
         }
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-            
-            alertController.addAction(addAction)
-            alertController.addAction(cancelAction)
-            
-            // MARK: - Alert textFields setup
-            
-            alertController.addTextField { (textField) in
-                textField.placeholder = "Input task name here..."
-                if let taskName = taskName {
-                    textField.text = taskName.name
-                }
-            }
         
-            alertController.addTextField { (noteTextField) in
-                alertNoteTextField = noteTextField
-                noteTextField.placeholder = "Additional info here"
-                if let taskName = taskName {
-                    noteTextField.text = taskName.note
-                }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        
+        alertController.addAction(addAction)
+        alertController.addAction(cancelAction)
+        
+        // MARK: - Alert textFields setup
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Input task name here..."
+            if let taskName = taskName {
+                textField.text = taskName.name
             }
-            present(alertController, animated: true, completion: nil)
         }
         
+        alertController.addTextField { (noteTextField) in
+            alertNoteTextField = noteTextField
+            noteTextField.placeholder = "Additional info here"
+            if let taskName = taskName {
+                noteTextField.text = taskName.note
+            }
+        }
+        present(alertController, animated: true, completion: nil)
     }
+    
+}

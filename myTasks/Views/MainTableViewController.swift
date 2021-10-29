@@ -8,10 +8,6 @@
 import UIKit
 import RealmSwift
 
-protocol CategoryDelegate {
-    func transferData(model: CategoryModel)
-}
-
 class MainTableViewController: UITableViewController {
         
     @IBOutlet var table: UITableView!
@@ -23,7 +19,7 @@ class MainTableViewController: UITableViewController {
         
         categories = realm.objects(CategoryModel.self)
         
-        table.sectionHeaderTopPadding = 0
+//        table.sectionHeaderTopPadding = 0
         
     }
     
@@ -36,7 +32,6 @@ class MainTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return categories.count
     }
     
@@ -61,7 +56,7 @@ class MainTableViewController: UITableViewController {
                 return UITableViewCell()
             }
         let tasksList = categories[indexPath.section]
-        cell.configureCell(model: tasksList)
+        cell.configureCell(tasksList)
         return cell
     }
     

@@ -14,8 +14,8 @@ class OneCategoryViewController: UITableViewController, CategoryDelegate {
     
     
     var currentTasksList: CategoryModel!
-    var currentTasks: Results<TaskModel>!
-    var completedTasks: Results<TaskModel>!
+    private var currentTasks: Results<TaskModel>!
+    private var completedTasks: Results<TaskModel>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,47 +79,38 @@ class OneCategoryViewController: UITableViewController, CategoryDelegate {
         }
     }
     
-    @IBAction func addTaskButtonPushed(_ sender: UIBarButtonItem) {
+    // MARK: - UITableView delegate
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let alertController = UIAlertController(title: "Title", message: "Title", preferredStyle: .alert)
+        var task: TaskModel!
         
-        var alertNoteTextField: UITextField!
+        task = indexPath.section == 0 ? currentTasks[indexPath.row] : completedTasks[indexPath.row]
         
-        // MARK: - Alert buttons setup
-        
-        let addAction = UIAlertAction(title: "Add", style: .default) { (alert) in
-            guard
-                let textField = alertController.textFields?[0].text, !textField.isEmpty else { return }
-            
-            let newTask = TaskModel()
-            newTask.name = textField
-            
-            if let noteTextField = alertNoteTextField.text , !noteTextField.isEmpty {
-                newTask.note = noteTextField
-            }
-            
-            RealmManager.saveTasksData(tasksList: self.currentTasksList, task: newTask)
+        let delete = UITableViewRowAction(style: .default, title: "Delete") { _, _ in
+            RealmManager.deleteTask(task)
             self.taskFilter()
-            self.tableView.reloadData()
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-        
-        alertController.addAction(addAction)
-        alertController.addAction(cancelAction)
-        
-        // MARK: - Alert textFields setup
-        
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Input task name here..."
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { _, _ in
+            self.addAndUpdateTaskAlert(task)
+            self.taskFilter()
         }
         
-        alertController.addTextField { (noteTextField) in
-            alertNoteTextField = noteTextField
-            noteTextField.placeholder = "Additional info here"
+        let done = UITableViewRowAction(style: .normal, title: "Done") { _, _ in
+            RealmManager.makeTaskDone(task)
+            self.taskFilter()
         }
-        present(alertController, animated: true, completion: nil)
+        
+        done.backgroundColor = .systemGreen
+        
+        return [delete, edit, done]
     }
+    
+    @IBAction func addTaskButtonPushed(_ sender: UIBarButtonItem) {
+        addAndUpdateTaskAlert()
+    }
+    
     
     func taskFilter() {
         currentTasks = currentTasksList.tasks.filter("completion = false")
@@ -127,5 +118,74 @@ class OneCategoryViewController: UITableViewController, CategoryDelegate {
         
         tableView.reloadData()
     }
+    
 }
 
+extension OneCategoryViewController {
+    private func addAndUpdateTaskAlert(_ taskName: TaskModel? = nil) {
+        
+        var title = "New task"
+        var addButton = "Add"
+        
+        if taskName != nil {
+            addButton = "Update"
+            title = "Edit task"
+        }
+        
+        let alertController = UIAlertController(title: title, message: "Title", preferredStyle: .alert)
+        
+        var alertNoteTextField: UITextField!
+        
+        // MARK: - Alert buttons setup
+        
+        let addAction = UIAlertAction(title: addButton, style: .default) { (alert) in
+            guard
+                let textField = alertController.textFields?[0].text, !textField.isEmpty else {
+                    return
+                }
+            if let taskName = taskName {
+                if let newNote = alertNoteTextField.text, !newNote.isEmpty {
+                    RealmManager.editTaskData(taskName, newName: textField, newNote: newNote)
+                } else {
+                    RealmManager.editTaskData(taskName, newName: textField, newNote: "")
+                }
+                self.taskFilter()
+            } else {
+                let newTask = TaskModel()
+                newTask.name = textField
+                
+                if let noteTextField = alertNoteTextField.text , !noteTextField.isEmpty {
+                    newTask.note = noteTextField
+                }
+                
+                RealmManager.saveTasksData(self.currentTasksList, task: newTask)
+                self.taskFilter()
+                self.tableView.reloadData()
+            }
+        }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+            
+            alertController.addAction(addAction)
+            alertController.addAction(cancelAction)
+            
+            // MARK: - Alert textFields setup
+            
+            alertController.addTextField { (textField) in
+                textField.placeholder = "Input task name here..."
+                if let taskName = taskName {
+                    textField.text = taskName.name
+                }
+            }
+        
+            alertController.addTextField { (noteTextField) in
+                alertNoteTextField = noteTextField
+                noteTextField.placeholder = "Additional info here"
+                if let taskName = taskName {
+                    noteTextField.text = taskName.note
+                }
+            }
+            present(alertController, animated: true, completion: nil)
+        }
+        
+    }

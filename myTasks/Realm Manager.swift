@@ -13,13 +13,13 @@ class RealmManager {
     
     // MARK: - Save data methods
     
-    static func saveCategoriesData(tasksList: [CategoryModel]) {
+    static func saveCategoriesData(_ tasksList: [CategoryModel]) {
         try! realm.write {
             realm.add(tasksList)
         }
     }
     
-    static func saveTasksData(tasksList: CategoryModel, task: TaskModel) {
+    static func saveTasksData(_ tasksList: CategoryModel, task: TaskModel) {
         try! realm.write {
             tasksList.tasks.append(task)
         }
@@ -27,7 +27,7 @@ class RealmManager {
     
     // MARK: - Delete data methods
     
-    static func deleteCategory(tasksList: CategoryModel) {
+    static func deleteCategory(_ tasksList: CategoryModel) {
         try! realm.write {
             let tasks = tasksList.tasks
             realm.delete(tasks)
@@ -35,11 +35,38 @@ class RealmManager {
         }
     }
     
+    static func deleteTask (_ task: TaskModel) {
+        try! realm.write() {
+            realm.delete(task)
+        }
+    }
+    
     // MARK: - Edit data methods
     
-    static func editFunc(_ tasksList: CategoryModel, newName: String) {
+    static func editCategoryData(_ tasksList: CategoryModel, newName: String) {
         try! realm.write {
             tasksList.name = newName
         }
     }
+    
+    static func editTaskData(_ task: TaskModel, newName: String, newNote: String) {
+        try! realm.write {
+            task.name = newName
+            task.note = newNote
+        }
+    }
+    
+    // MARK: - Done tasks methods
+    
+    static func makeAllTasksDone(_ tasksList: CategoryModel) {
+        try! realm.write {
+            tasksList.tasks.setValue(true, forKey: "completion")
+        }
+    }
+    static func makeTaskDone(_ task: TaskModel) {
+        try! realm.write() {
+            task.completion.toggle()
+        }
+    }
+     
 }

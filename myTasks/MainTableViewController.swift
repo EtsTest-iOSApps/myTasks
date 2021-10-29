@@ -13,13 +13,15 @@ protocol CategoryDelegate {
 }
 
 class MainTableViewController: UITableViewController {
-    
+        
     @IBOutlet var table: UITableView!
     
-    var categories: Results<CategoryModel>!
+    private var categories: Results<CategoryModel>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.leftBarButtonItem = editButtonItem
+        editButtonItem.tintColor = .white
         
         categories = realm.objects(CategoryModel.self)
         
@@ -75,10 +77,10 @@ class MainTableViewController: UITableViewController {
         
         
         let currentList = categories[indexPath.section]
-        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { _, _ in
+        let delete = UITableViewRowAction(style: .normal, title: "Delete") { _, _ in
             
-            RealmManager.deleteCategory(tasksList: currentList)
-            tableView.deleteSections(IndexSet(integer: indexPath.section), with: .right)
+            RealmManager.deleteCategory(currentList)
+            tableView.deleteSections(IndexSet(integer: indexPath.section), with: .automatic)
         }
         
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { _, _ in
@@ -87,7 +89,15 @@ class MainTableViewController: UITableViewController {
             })
         }
         
-        return [delete, edit]
+        let completed = UITableViewRowAction(style: .normal, title: "Done") { _, _ in
+            RealmManager.makeAllTasksDone(currentList)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        
+        completed.backgroundColor = .systemGreen
+        delete.backgroundColor = .systemRed
+        
+        return [delete, edit, completed]
     }
     
     // MARK: - Navigation
@@ -102,7 +112,7 @@ class MainTableViewController: UITableViewController {
     
 }
 
-extension MainTableViewController {
+extension MainTableViewController: UITextFieldDelegate {
     
     private func addAndUpdateAlert(_ category: CategoryModel? = nil, completion: (() -> Void)? = nil) {
         
@@ -126,11 +136,11 @@ extension MainTableViewController {
                 let textField = alertController.textFields?[0].text, !textField.isEmpty else { return }
             
             if let categoryName = category {
-                RealmManager.editFunc(categoryName, newName: textField)
+                RealmManager.editCategoryData(categoryName, newName: textField)
                 if completion != nil { completion!() }
             } else {
                 let newCategory = CategoryModel(value: ["name" : textField])
-                RealmManager.saveCategoriesData(tasksList: [newCategory])
+                RealmManager.saveCategoriesData([newCategory])
                 
                 self.tableView.insertSections(NSIndexSet(index: self.categories.count - 1) as IndexSet, with: .automatic)
             }

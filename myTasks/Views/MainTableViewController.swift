@@ -9,16 +9,19 @@ import UIKit
 import RealmSwift
 
 class MainTableViewController: UITableViewController {
-        
-    @IBOutlet var table: UITableView!
+    
+    @IBOutlet private weak var segmentedController: UISegmentedControl?
+    
+    @IBOutlet private var table: UITableView?
     
     private var categories: Results<CategoryModel>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        segmentedController?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+        
         categories = realm.objects(CategoryModel.self)
-                
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,8 +29,17 @@ class MainTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    @IBAction func segmentedControlPressed(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 1 {
+            categories = categories.sorted(byKeyPath: "date")
+        } else  {
+            categories = categories.sorted(byKeyPath: "name")
+        }
+        tableView.reloadData()
+    }
     
-    // MARK: - Table view data source
+    
+    // MARK: - UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return categories.count
@@ -40,6 +52,7 @@ class MainTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 10
     }
@@ -62,10 +75,9 @@ class MainTableViewController: UITableViewController {
         addAndUpdateAlert()
     }
     
-    // MARK: -  tableView delegate methods
+    // MARK: - UITableViewDelegates
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
         let currentList = categories[indexPath.section]
         
         let delete = UIContextualAction(style: .normal, title: "Delete") { _,_,_  in
@@ -76,13 +88,14 @@ class MainTableViewController: UITableViewController {
         let edit = UIContextualAction(style: .normal, title: "Edit") { _,_,_ in
             self.addAndUpdateAlert(currentList, completion: {
                 tableView.reloadRows(at: [indexPath], with: .fade)
-        })
+            })
         }
         
         let done = UIContextualAction(style: .normal, title: "Done") {_,_,_ in
-                RealmManager.makeAllTasksDone(currentList)
-                tableView.reloadRows(at: [indexPath], with: .none)
+            RealmManager.makeAllTasksDone(currentList)
+            tableView.reloadRows(at: [indexPath], with: .none)
         }
+        
         done.backgroundColor = .systemGreen
         delete.backgroundColor = .systemRed
         
@@ -90,6 +103,7 @@ class MainTableViewController: UITableViewController {
         
         return swipeActions
     }
+    
     
     // MARK: - Navigation
     
@@ -103,6 +117,8 @@ class MainTableViewController: UITableViewController {
     
 }
 
+// MARK: - Extensions
+
 extension MainTableViewController: UITextFieldDelegate {
     
     private func addAndUpdateAlert(_ category: CategoryModel? = nil, completion: (() -> Void)? = nil) {
@@ -115,7 +131,7 @@ extension MainTableViewController: UITextFieldDelegate {
             addButton = "Update"
         }
         
-        let alertController = UIAlertController(title: title, message: "Please insert new category", preferredStyle: .alert)
+        let alertController = UIAlertController(title: title, message: "Please add new category", preferredStyle: .alert)
         
         alertController.addTextField { (textField) in
             textField.placeholder = "Input category name here..."

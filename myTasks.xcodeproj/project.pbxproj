@@ -13,6 +13,7 @@
 		155B238E27297725008D8544 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 155B238D27297725008D8544 /* RealmSwift */; settings = {ATTRIBUTES = (Required, ); }; };
 		155B239027299D13008D8544 /* Realm Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155B238F27299D13008D8544 /* Realm Manager.swift */; };
 		155B23922729C5AA008D8544 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155B23912729C5A9008D8544 /* Mapper.swift */; };
+		159B21822732D66600E78827 /* RealmSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159B21812732D66600E78827 /* RealmSettings.swift */; };
 		15C10E84272AD41100F08195 /* TaskWithoutNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C10E83272AD41100F08195 /* TaskWithoutNoteTableViewCell.swift */; };
 		15D74B5F27283D0A00190AB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B5E27283D0A00190AB0 /* AppDelegate.swift */; };
 		15D74B6127283D0A00190AB0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D74B6027283D0A00190AB0 /* SceneDelegate.swift */; };
@@ -33,6 +34,7 @@
 		154554B7272C3C5800720E6E /* Gesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gesture.swift; sourceTree = "<group>"; };
 		155B238F27299D13008D8544 /* Realm Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm Manager.swift"; sourceTree = "<group>"; };
 		155B23912729C5A9008D8544 /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		159B21812732D66600E78827 /* RealmSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSettings.swift; sourceTree = "<group>"; };
 		15C10E83272AD41100F08195 /* TaskWithoutNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskWithoutNoteTableViewCell.swift; sourceTree = "<group>"; };
 		15D74B5B27283D0A00190AB0 /* myTasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myTasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15D74B5E27283D0A00190AB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +101,23 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		159B217F2732D64900E78827 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				159B21802732D65400E78827 /* RealmSettings */,
+				15388148272C3548007C759D /* RealmManager */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		159B21802732D65400E78827 /* RealmSettings */ = {
+			isa = PBXGroup;
+			children = (
+				159B21812732D66600E78827 /* RealmSettings.swift */,
+			);
+			path = RealmSettings;
+			sourceTree = "<group>";
+		};
 		15D74B5227283D0900190AB0 = {
 			isa = PBXGroup;
 			children = (
@@ -118,7 +137,7 @@
 		15D74B5D27283D0A00190AB0 /* myTasks */ = {
 			isa = PBXGroup;
 			children = (
-				15388148272C3548007C759D /* RealmManager */,
+				159B217F2732D64900E78827 /* Realm */,
 				15388147272C3543007C759D /* Models */,
 				15388149272C3552007C759D /* Views */,
 				1538814A272C3557007C759D /* Cells */,
@@ -221,6 +240,7 @@
 				15C10E84272AD41100F08195 /* TaskWithoutNoteTableViewCell.swift in Sources */,
 				155B23922729C5AA008D8544 /* Mapper.swift in Sources */,
 				155B239027299D13008D8544 /* Realm Manager.swift in Sources */,
+				159B21822732D66600E78827 /* RealmSettings.swift in Sources */,
 				154554B8272C3C5800720E6E /* Gesture.swift in Sources */,
 				15D74B772728407B00190AB0 /* CategoryModel.swift in Sources */,
 				15D74B5F27283D0A00190AB0 /* AppDelegate.swift in Sources */,

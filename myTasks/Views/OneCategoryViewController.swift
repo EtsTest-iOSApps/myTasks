@@ -26,7 +26,7 @@ class OneCategoryViewController: UITableViewController {
 
     }
     
-    // MARK: - Table view data source
+    // MARK: - UITableViewDataSource
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white
@@ -82,7 +82,7 @@ class OneCategoryViewController: UITableViewController {
         }
     }
     
-    // MARK: - UITableView delegate
+    // MARK: - UITableViewDelegates
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
@@ -125,10 +125,10 @@ class OneCategoryViewController: UITableViewController {
     
 }
 
+// MARK: - Extensions
+
 extension OneCategoryViewController {
-    
     private func addAndUpdateTaskAlert(_ taskName: TaskModel? = nil) {
-        
         var title = "New task"
         var addButton = "Add"
         

@@ -15,7 +15,24 @@ class CategoryTableViewCell: UITableViewCell {
     static let identifier = "CategoryCell"
     
     func configureCell(_ model: CategoryModel) {
+        let currentTasks = model.tasks.filter("completion = false")
+        let completedTasks = model.tasks.filter("completion = true")
+        
         categoryTitle?.text = model.name
-        categoryDetail?.text = "\(model.tasks.count)"
+        
+        if currentTasks.count != 0 {
+            categoryDetail?.text = "In progress: \(currentTasks.count)"
+            categoryDetail?.textColor = UIColor.systemGray
+            categoryDetail?.font = UIFont.systemFont(ofSize: 17)
+        } else if completedTasks.count != 0 {
+            categoryDetail?.text = "✓"
+            categoryDetail?.textColor = UIColor.green
+            categoryDetail?.font = .boldSystemFont(ofSize: 20)
+        } else {
+            categoryDetail?.text = "Empty"
+            categoryDetail?.textColor = UIColor.systemGray
+            categoryDetail?.font = UIFont.systemFont(ofSize: 17)
+        }
     }
+    
 }

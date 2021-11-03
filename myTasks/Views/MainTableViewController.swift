@@ -18,9 +18,7 @@ class MainTableViewController: UITableViewController {
         super.viewDidLoad()
         
         categories = realm.objects(CategoryModel.self)
-        
-//        table.sectionHeaderTopPadding = 0
-        
+                
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,30 +64,31 @@ class MainTableViewController: UITableViewController {
     
     // MARK: -  tableView delegate methods
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let currentList = categories[indexPath.section]
-        let delete = UITableViewRowAction(style: .normal, title: "Delete") { _, _ in
-            
+        
+        let delete = UIContextualAction(style: .normal, title: "Delete") { _,_,_  in
             RealmManager.deleteCategory(currentList)
             tableView.deleteSections(IndexSet(integer: indexPath.section), with: .automatic)
         }
         
-        let edit = UITableViewRowAction(style: .normal, title: "Edit") { _, _ in
+        let edit = UIContextualAction(style: .normal, title: "Edit") { _,_,_ in
             self.addAndUpdateAlert(currentList, completion: {
                 tableView.reloadRows(at: [indexPath], with: .fade)
-            })
+        })
         }
         
-        let completed = UITableViewRowAction(style: .normal, title: "Done") { _, _ in
-            RealmManager.makeAllTasksDone(currentList)
-            tableView.reloadRows(at: [indexPath], with: .none)
+        let done = UIContextualAction(style: .normal, title: "Done") {_,_,_ in
+                RealmManager.makeAllTasksDone(currentList)
+                tableView.reloadRows(at: [indexPath], with: .none)
         }
-        
-        completed.backgroundColor = .systemGreen
+        done.backgroundColor = .systemGreen
         delete.backgroundColor = .systemRed
         
-        return [delete, edit, completed]
+        let swipeActions = UISwipeActionsConfiguration(actions: [delete,edit,done])
+        
+        return swipeActions
     }
     
     // MARK: - Navigation

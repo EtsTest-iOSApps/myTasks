@@ -69,12 +69,14 @@ class OneCategoryViewController: UITableViewController {
                     return UITableViewCell()
                 }
             cellWithoutNote.configureCell(model: task)
+
             return cellWithoutNote
         } else {
             guard
                 let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {
                     return UITableViewCell()
                 }
+
             cell.configureCell(model: task)
             return cell
         }
@@ -82,36 +84,37 @@ class OneCategoryViewController: UITableViewController {
     
     // MARK: - UITableView delegate
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         var task: TaskModel!
         
         task = indexPath.section == 0 ? currentTasks[indexPath.row] : completedTasks[indexPath.row]
         
-        let delete = UITableViewRowAction(style: .default, title: "Delete") { _, _ in
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { _,_,_  in
             RealmManager.deleteTask(task)
             self.taskFilter()
         }
         
-        let edit = UITableViewRowAction(style: .normal, title: "Edit") { _, _ in
+        let edit = UIContextualAction(style: .normal, title: "Edit") { _,_,_ in
             self.addAndUpdateTaskAlert(task)
-            self.taskFilter()
         }
         
-        let done = UITableViewRowAction(style: .normal, title: "Done") { _, _ in
+        let done = UIContextualAction(style: .normal, title: "Done") {_,_,_ in
             RealmManager.makeTaskDone(task)
             self.taskFilter()
         }
         
         done.backgroundColor = .systemGreen
         
-        return [delete, edit, done]
+        let swipeActions = UISwipeActionsConfiguration(actions: [delete,edit,done])
+        
+        return swipeActions
     }
+    
     
     @IBAction func addTaskButtonPushed(_ sender: UIBarButtonItem) {
         addAndUpdateTaskAlert()
     }
-    
     
     func taskFilter() {
         currentTasks = currentTasksList.tasks.filter("completion = false")

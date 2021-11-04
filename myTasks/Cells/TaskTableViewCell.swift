@@ -19,6 +19,20 @@ class TaskTableViewCell: UITableViewCell {
         taskTitle?.text = model.name
         noteTitle?.text = model.note
         Colors.installCheckmarks(model, image: taskCheckmark ?? UIImageView())
+        gesture(imageView: taskCheckmark!)
+    }
+    
+    func gesture(imageView: UIImageView) {
+        let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(self.imageTapped))
+        
+        imageView.addGestureRecognizer(tapGestureRecognizer)
+        imageView.isUserInteractionEnabled = true
+        
+    }
+    @objc func imageTapped(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            print("Tapped")
+        }
     }
     
 }

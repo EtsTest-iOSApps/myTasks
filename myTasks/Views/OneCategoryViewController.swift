@@ -193,4 +193,19 @@ extension OneCategoryViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+//    private func acceptDeletion(_ task: TaskModel, completion: (() -> Void)? = nil) {
+//        let deleteAlert = UIAlertController(title: "Really?", message: "Delete?", preferredStyle: .actionSheet)
+//        let yesButton = UIAlertAction(title: "Delete", style: .destructive) { _ in
+//            RealmManager.deleteTask(task)
+//            let currentRow = self.tableView.indexPathForSelectedRow
+//            self.tableView.deleteSections(IndexSet(integer: currentRow?.section ?? 0), with: .automatic)
+////            self.tableView.reloadData()
+//        }
+//        let noButton = UIAlertAction(title: "No", style: .default)
+//        
+//        deleteAlert.addAction(yesButton)
+//        deleteAlert.addAction(noButton)
+//        present(deleteAlert, animated: true, completion: nil)
+//    }
+    
 }

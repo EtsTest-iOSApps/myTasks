@@ -22,6 +22,7 @@ class MainTableViewController: UITableViewController {
         segmentedController?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
         
         categories = realm.objects(CategoryModel.self)
+        categories = categories.sorted(byKeyPath: "name")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,7 +33,7 @@ class MainTableViewController: UITableViewController {
     @IBAction func segmentedControlPressed(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 1 {
             categories = categories.sorted(byKeyPath: "date")
-        } else  {
+        } else {
             categories = categories.sorted(byKeyPath: "name")
         }
         tableView.reloadData()
@@ -81,8 +82,7 @@ class MainTableViewController: UITableViewController {
         let currentList = categories[indexPath.section]
         
         let delete = UIContextualAction(style: .normal, title: "Delete") { _,_,_  in
-            RealmManager.deleteCategory(currentList)
-            tableView.deleteSections(IndexSet(integer: indexPath.section), with: .automatic)
+            self.acceptDeletion(currentList, indexPath: indexPath)
         }
         
         let edit = UIContextualAction(style: .normal, title: "Edit") { _,_,_ in
@@ -137,7 +137,7 @@ extension MainTableViewController: UITextFieldDelegate {
             textField.placeholder = "Input category name here..."
         }
         
-        let addAction = UIAlertAction(title: addButton, style: .default) { (alert) in
+        let addAction = UIAlertAction(title: addButton, style: .default) { _ in
             
             guard
                 let textField = alertController.textFields?[0].text, !textField.isEmpty else { return }
@@ -164,4 +164,20 @@ extension MainTableViewController: UITextFieldDelegate {
         
         present(alertController, animated: true, completion: nil)
     }
+    
+    private func acceptDeletion(_ category: CategoryModel, indexPath: IndexPath) {
+        
+        let deleteAlert = UIAlertController(title: "Delete List", message: "Do you really want to delete this list?", preferredStyle: .actionSheet)
+        let deleteButton = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            RealmManager.deleteCategory(category)
+            self.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+        }
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        deleteAlert.addAction(deleteButton)
+        deleteAlert.addAction(cancelButton)
+        present(deleteAlert, animated: true, completion: nil)
+    }
 }
+

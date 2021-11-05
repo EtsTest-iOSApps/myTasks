@@ -26,7 +26,7 @@ class CategoryTableViewCell: UITableViewCell {
             categoryDetail?.font = UIFont.systemFont(ofSize: 17)
         } else if completedTasks.count != 0 {
             categoryDetail?.text = "✓"
-            categoryDetail?.textColor = UIColor.green
+            categoryDetail?.textColor = UIColor.systemMint
             categoryDetail?.font = .boldSystemFont(ofSize: 20)
         } else {
             categoryDetail?.text = "Empty"

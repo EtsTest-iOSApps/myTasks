@@ -11,7 +11,6 @@ import RealmSwift
 class MainTableViewController: UITableViewController {
     
     @IBOutlet private weak var segmentedController: UISegmentedControl?
-    
     @IBOutlet private var table: UITableView?
     
     private var categories: Results<CategoryModel>!
@@ -21,7 +20,7 @@ class MainTableViewController: UITableViewController {
         
         segmentedController?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
         
-        categories = realm.objects(CategoryModel.self)
+        categories = RealmManager.realm.objects(CategoryModel.self)
         categories = categories.sorted(byKeyPath: "name")
     }
     
@@ -63,10 +62,12 @@ class MainTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard
             let cell = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.identifier, for: indexPath) as? CategoryTableViewCell else {
                 return UITableViewCell()
             }
+        
         let tasksList = categories[indexPath.section]
         cell.configureCell(tasksList)
         return cell
@@ -79,15 +80,17 @@ class MainTableViewController: UITableViewController {
     // MARK: - UITableViewDelegates
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
         let currentList = categories[indexPath.section]
         
-        let delete = UIContextualAction(style: .normal, title: "Delete") { _,_,_  in
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { _,_,_  in
             self.acceptDeletion(currentList, indexPath: indexPath)
         }
         
         let edit = UIContextualAction(style: .normal, title: "Edit") { _,_,_ in
             self.addAndUpdateAlert(currentList, completion: {
-                tableView.reloadRows(at: [indexPath], with: .fade)
+                tableView.reloadRows(at: [indexPath], with: .none)
+                self.segmentedControlPressed(self.segmentedController!)
             })
         }
         
@@ -98,9 +101,17 @@ class MainTableViewController: UITableViewController {
         
         done.backgroundColor = .systemGreen
         delete.backgroundColor = .systemRed
+
+        var actions = [delete, edit, done]
         
-        let swipeActions = UISwipeActionsConfiguration(actions: [delete,edit,done])
+        if currentList.tasks.isEmpty {
+            actions.removeLast()
+        } else if currentList.tasks.filter("completion = false").count == 0 {
+            actions.removeLast()
+        }
         
+        let swipeActions = UISwipeActionsConfiguration(actions: actions)
+    
         return swipeActions
     }
     
@@ -150,6 +161,7 @@ extension MainTableViewController: UITextFieldDelegate {
                 RealmManager.saveCategoriesData([newCategory])
                 
                 self.tableView.insertSections(NSIndexSet(index: self.categories.count - 1) as IndexSet, with: .automatic)
+                self.segmentedControlPressed(self.segmentedController!)
             }
         }
         
@@ -177,7 +189,9 @@ extension MainTableViewController: UITextFieldDelegate {
         
         deleteAlert.addAction(deleteButton)
         deleteAlert.addAction(cancelButton)
+        
         present(deleteAlert, animated: true, completion: nil)
     }
+    
 }
 

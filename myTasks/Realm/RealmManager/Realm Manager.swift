@@ -7,12 +7,12 @@
 
 import RealmSwift
 
-let realm = try! Realm()
-
 class RealmManager {
     
     // MARK: - Save data methods
     
+    static let realm = try! Realm()
+        
     static func saveCategoriesData(_ tasksList: [CategoryModel]) {
         try! realm.write {
             realm.add(tasksList)
@@ -56,13 +56,14 @@ class RealmManager {
         }
     }
     
-    // MARK: - Update completion methods
+    // MARK: - Update data methods
     
     static func makeAllTasksDone(_ tasksList: CategoryModel) {
         try! realm.write {
             tasksList.tasks.setValue(true, forKey: "completion")
         }
     }
+    
     static func makeTaskDone(_ task: TaskModel) {
         try! realm.write() {
             task.completion.toggle()

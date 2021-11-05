@@ -8,6 +8,7 @@
 import RealmSwift
 
 class RealmSetup {
+    
     static func performRealmMigrations() {
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
             schemaVersion: 0,

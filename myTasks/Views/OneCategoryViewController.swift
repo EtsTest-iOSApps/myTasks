@@ -50,6 +50,7 @@ class OneCategoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55
     }
@@ -61,6 +62,7 @@ class OneCategoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let task: TaskModel!
+        
         task = indexPath.section == 0 ? currentTasks[indexPath.row] : completedTasks[indexPath.row]
         
         if task.note == "" {
@@ -69,14 +71,12 @@ class OneCategoryViewController: UITableViewController {
                     return UITableViewCell()
                 }
             cellWithoutNote.configureCell(model: task)
-
             return cellWithoutNote
         } else {
             guard
                 let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {
                     return UITableViewCell()
                 }
-
             cell.configureCell(model: task)
             return cell
         }
@@ -91,26 +91,39 @@ class OneCategoryViewController: UITableViewController {
         task = indexPath.section == 0 ? currentTasks[indexPath.row] : completedTasks[indexPath.row]
         
         let delete = UIContextualAction(style: .destructive, title: "Delete") { _,_,_  in
-            RealmManager.deleteTask(task)
-            self.taskFilter()
+            self.acceptDeletion(task)
         }
         
-        let edit = UIContextualAction(style: .normal, title: "Edit") { _,_,_ in
-            self.addAndUpdateTaskAlert(task)
-        }
-        
-        let done = UIContextualAction(style: .normal, title: "Done") {_,_,_ in
+        let done = UIContextualAction(style: .normal, title: "Done") { _, _, _ in
             RealmManager.makeTaskDone(task)
             self.taskFilter()
         }
         
         done.backgroundColor = .systemGreen
         
-        let swipeActions = UISwipeActionsConfiguration(actions: [delete,edit,done])
+        let undone = UIContextualAction(style: .normal, title: "Undone") { _, _, _ in
+            RealmManager.makeTaskDone(task)
+            self.taskFilter()
+        }
+        
+        undone.backgroundColor = .systemMint
+        
+        let edit = UIContextualAction(style: .normal, title: "Edit") { _,_,_ in
+            self.addAndUpdateTaskAlert(task)
+        }
+        
+        var actions = [delete,edit,done]
+        
+        if task.completion == true {
+            actions.removeLast()
+            actions.append(undone)
+        }
+        
+        let swipeActions = UISwipeActionsConfiguration(actions: actions)
+        self.taskFilter()
         
         return swipeActions
     }
-    
     
     @IBAction func addTaskButtonPushed(_ sender: UIBarButtonItem) {
         addAndUpdateTaskAlert()
@@ -119,7 +132,6 @@ class OneCategoryViewController: UITableViewController {
     func taskFilter() {
         currentTasks = currentTasksList.tasks.filter("completion = false")
         completedTasks = currentTasksList.tasks.filter("completion = true")
-        
         tableView.reloadData()
     }
     
@@ -129,6 +141,7 @@ class OneCategoryViewController: UITableViewController {
 
 extension OneCategoryViewController {
     private func addAndUpdateTaskAlert(_ taskName: TaskModel? = nil) {
+        
         var title = "New task"
         var addButton = "Add"
         
@@ -165,7 +178,6 @@ extension OneCategoryViewController {
                 
                 RealmManager.saveTasksData(self.currentTasksList, task: newTask)
                 self.taskFilter()
-                self.tableView.reloadData()
             }
         }
         
@@ -193,19 +205,20 @@ extension OneCategoryViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-//    private func acceptDeletion(_ task: TaskModel, completion: (() -> Void)? = nil) {
-//        let deleteAlert = UIAlertController(title: "Really?", message: "Delete?", preferredStyle: .actionSheet)
-//        let yesButton = UIAlertAction(title: "Delete", style: .destructive) { _ in
-//            RealmManager.deleteTask(task)
-//            let currentRow = self.tableView.indexPathForSelectedRow
-//            self.tableView.deleteSections(IndexSet(integer: currentRow?.section ?? 0), with: .automatic)
-////            self.tableView.reloadData()
-//        }
-//        let noButton = UIAlertAction(title: "No", style: .default)
-//        
-//        deleteAlert.addAction(yesButton)
-//        deleteAlert.addAction(noButton)
-//        present(deleteAlert, animated: true, completion: nil)
-//    }
+    private func acceptDeletion(_ task: TaskModel) {
+        
+        let deleteAlert = UIAlertController(title: "Delete Task", message: "Do you really want to delete this task?", preferredStyle: .actionSheet)
+        let deleteButton = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            RealmManager.deleteTask(task)
+            self.taskFilter()
+        }
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        deleteAlert.addAction(deleteButton)
+        deleteAlert.addAction(cancelButton)
+        
+        present(deleteAlert, animated: true, completion: nil)
+    }
     
 }

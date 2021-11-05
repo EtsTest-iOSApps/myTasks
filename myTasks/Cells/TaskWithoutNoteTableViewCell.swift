@@ -16,7 +16,7 @@ class TaskWithoutNoteTableViewCell: UITableViewCell {
     
     func configureCell(model: TaskModel) {
         taskTitle?.text = model.name
-        Colors.installCheckmarks(model, image: taskCheckmark ?? UIImageView())
+        Checkmarks.install(model, image: taskCheckmark ?? UIImageView())
     }
-
+    
 }

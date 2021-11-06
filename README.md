@@ -1,7 +1,7 @@
 # MyTasks ⭐️
 > Simple ToDoList application in Swift for iOS 15.
 ## General Information
-- "MyTasks ⭐️ " will help you to compose your own task lists
+- MyTasks ⭐️  will help you to compose your own task lists
 
 ## Features
 - Create new categories (Lists)

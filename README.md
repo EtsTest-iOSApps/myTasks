@@ -12,7 +12,7 @@
 ## Screenshots
 - MyTasks⭐️ demo
 <img src="https://github.com/max-pav-love/myTasks/blob/main/Screenshots/Presentation.gif" width="214" height="463">
-  You can find presentation in the best resolution and in *.mp4* format in Screenshots folder
+> You can find presentation in the best resolution and in *.mp4* format in `Screenshots` folder
 
 ## Setup
 - [x] Just clone this repo and run

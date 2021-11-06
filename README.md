@@ -10,7 +10,8 @@
 - Edit, delete your tasks, and lists
 
 ## Screenshots
-- App presentation
+- MyTasks⭐️ demo
+<img src="https://github.com/max-pav-love/myTasks/blob/main/Screenshots/Presentation.gif" width="214" height="463">
 
 ## Setup
 - [x] Just clone this repo and run

@@ -18,7 +18,7 @@ class TaskTableViewCell: UITableViewCell {
     func configureCell(model: TaskModel) {
         taskTitle?.text = model.name
         noteTitle?.text = model.note
-        Checkmarks.install(model, image: taskCheckmark ?? UIImageView())
+        Checkmarks.configure(for: taskCheckmark, from: model)
     }
     
 }

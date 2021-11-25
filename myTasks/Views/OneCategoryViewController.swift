@@ -18,12 +18,12 @@ class OneCategoryViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navBarLabel.title = currentTasksList.name
-        navigationItem.backBarButtonItem?.tintColor = .white
-        
+        setupNavigationBar()
         taskFilter()
-
+    }
+    
+    @IBAction func addTaskButtonPushed(_ sender: UIBarButtonItem) {
+        addAndUpdateTaskAlert()
     }
     
     // MARK: - UITableViewDataSource
@@ -33,61 +33,39 @@ class OneCategoryViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        CategoryTableViewConstants.numberOfSections
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? currentTasks.count : completedTasks.count
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if currentTasksList.tasks.count == 0 {
-            return ""
-        }
-        return section == 0 ? "CURRENT" : "COMPLETED"
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return .leastNonzeroMagnitude
+        numberOfRows(in: section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let task: TaskModel!
-        
-        task = indexPath.section == 0 ? currentTasks[indexPath.row] : completedTasks[indexPath.row]
-        
-        if task.note == "" {
-            guard
-                let cellWithoutNote = tableView.dequeueReusableCell(withIdentifier: TaskWithoutNoteTableViewCell.identifier, for: indexPath) as? TaskWithoutNoteTableViewCell else {
-                    return UITableViewCell()
-                }
-            cellWithoutNote.configureCell(model: task)
-            return cellWithoutNote
-        } else {
-            guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {
-                    return UITableViewCell()
-                }
-            cell.configureCell(model: task)
-            return cell
-        }
+        configureCells(for: indexPath, tableView)
     }
     
-    // MARK: - UITableViewDelegates
+    // MARK: - UITableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        titleForHeader(in: section)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        CategoryTableViewConstants.heighForHeader
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        CategoryTableViewConstants.heighForRow
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        .leastNonzeroMagnitude
+    }
+    
+    // MARK: - UISwipeActionsConfiguration
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
         var task: TaskModel!
-        
         task = indexPath.section == 0 ? currentTasks[indexPath.row] : completedTasks[indexPath.row]
         
         let delete = UIContextualAction(style: .destructive, title: "Delete") { _,_,_  in
@@ -98,14 +76,12 @@ class OneCategoryViewController: UITableViewController {
             RealmManager.makeTaskDone(task)
             self.taskFilter()
         }
-        
         done.backgroundColor = .systemGreen
         
         let undone = UIContextualAction(style: .normal, title: "Undone") { _, _, _ in
             RealmManager.makeTaskDone(task)
             self.taskFilter()
         }
-        
         undone.backgroundColor = .systemMint
         
         let edit = UIContextualAction(style: .normal, title: "Edit") { _,_,_ in
@@ -118,21 +94,58 @@ class OneCategoryViewController: UITableViewController {
             actions.removeLast()
             actions.append(undone)
         }
-        
         let swipeActions = UISwipeActionsConfiguration(actions: actions)
         self.taskFilter()
-        
         return swipeActions
     }
     
-    @IBAction func addTaskButtonPushed(_ sender: UIBarButtonItem) {
-        addAndUpdateTaskAlert()
+    // MARK: - Private: Navigation
+    
+    private func setupNavigationBar() {
+        navBarLabel.title = currentTasksList.name
+        navigationItem.backBarButtonItem?.tintColor = .white
     }
     
-    func taskFilter() {
+    // MARK: - Private: Filter
+    
+    private func taskFilter() {
         currentTasks = currentTasksList.tasks.filter("completion = false")
         completedTasks = currentTasksList.tasks.filter("completion = true")
         tableView.reloadData()
+    }
+    
+    // MARK: - Private: UITableView
+    
+    private func numberOfRows(in section: Int) -> Int {
+        section == 0 ? currentTasks.count : completedTasks.count
+    }
+    
+    private func titleForHeader(in section: Int) -> String? {
+        if currentTasksList.tasks.count == 0 {
+            return ""
+        }
+        return section == 0 ? "CURRENT" : "COMPLETED"
+    }
+    
+    private func configureCells(for indexPath: IndexPath, _ tableView: UITableView) -> UITableViewCell {
+        let task: TaskModel?
+        task = indexPath.section == 0 ? currentTasks[indexPath.row] : completedTasks[indexPath.row]
+        
+        if task?.note == "" {
+            guard
+                let cellWithoutNote = tableView.dequeueReusableCell(withIdentifier: TaskWithoutNoteTableViewCell.identifier, for: indexPath) as? TaskWithoutNoteTableViewCell else {
+                    return UITableViewCell()
+                }
+            cellWithoutNote.configureCell(model: task ?? TaskModel())
+            return cellWithoutNote
+        } else {
+            guard
+                let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {
+                    return UITableViewCell()
+                }
+            cell.configureCell(model: task ?? TaskModel())
+            return cell
+        }
     }
     
 }
@@ -141,7 +154,6 @@ class OneCategoryViewController: UITableViewController {
 
 extension OneCategoryViewController {
     private func addAndUpdateTaskAlert(_ taskName: TaskModel? = nil) {
-        
         var title = "New task"
         var addButton = "Add"
         
@@ -149,33 +161,32 @@ extension OneCategoryViewController {
             addButton = "Update"
             title = "Edit task"
         }
-        
-        let alertController = UIAlertController(title: title, message: "Title", preferredStyle: .alert)
-        
+        let alertController = UIAlertController(title: title,
+                                                message: "Title",
+                                                preferredStyle: .alert)
         var alertNoteTextField: UITextField!
         
         // MARK: - Alert buttons setup
         
-        let addAction = UIAlertAction(title: addButton, style: .default) { (alert) in
-            guard
-                let textField = alertController.textFields?[0].text, !textField.isEmpty else {
-                    return
-                }
+        let addAction = UIAlertAction(title: addButton, style: .default) { alert in
+            guard let textField = alertController.textFields?[0].text, !textField.isEmpty else { return }
             if let taskName = taskName {
                 if let newNote = alertNoteTextField.text, !newNote.isEmpty {
-                    RealmManager.editTaskData(taskName, newName: textField, newNote: newNote)
+                    RealmManager.editTaskData(taskName,
+                                              newName: textField,
+                                              newNote: newNote)
                 } else {
-                    RealmManager.editTaskData(taskName, newName: textField, newNote: "")
+                    RealmManager.editTaskData(taskName,
+                                              newName: textField,
+                                              newNote: "")
                 }
                 self.taskFilter()
             } else {
                 let newTask = TaskModel()
                 newTask.name = textField
-                
                 if let noteTextField = alertNoteTextField.text , !noteTextField.isEmpty {
                     newTask.note = noteTextField
                 }
-                
                 RealmManager.saveTasksData(self.currentTasksList, task: newTask)
                 self.taskFilter()
             }
@@ -206,18 +217,17 @@ extension OneCategoryViewController {
     }
     
     private func acceptDeletion(_ task: TaskModel) {
-        
-        let deleteAlert = UIAlertController(title: "Delete Task", message: "Do you really want to delete this task?", preferredStyle: .actionSheet)
+        let deleteAlert = UIAlertController(title: "Delete Task",
+                                            message: "Do you really want to delete this task?",
+                                            preferredStyle: .actionSheet)
         let deleteButton = UIAlertAction(title: "Delete", style: .destructive) { _ in
             RealmManager.deleteTask(task)
             self.taskFilter()
         }
-        
         let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
         
         deleteAlert.addAction(deleteButton)
         deleteAlert.addAction(cancelButton)
-        
         present(deleteAlert, animated: true, completion: nil)
     }
     

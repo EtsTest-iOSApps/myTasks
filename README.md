@@ -20,7 +20,7 @@
 - [x] Just clone this repo and run
 
 ## Technologies Used
-- Realm 10.18.0
+- Realm 10.20.0
 
 ## Authors
 - Maxim Pavlovich - [@max-pav-love](https://github.com/max-pav-love) - feel free to contact me!

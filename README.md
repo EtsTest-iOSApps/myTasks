@@ -17,7 +17,7 @@
 > You can find presentation in the best resolution and in `.mp4` format in `Screenshots` folder
 
 ## Setup
-- [x] Just clone this repo and run
+- [x] Just download and run
 
 ## Technologies Used
 - Realm 10.20.0
